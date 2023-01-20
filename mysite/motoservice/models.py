@@ -5,6 +5,7 @@ from django.db import models
 class MotocikloModelis(models.Model):
     marke = models.CharField('Markė', max_length=200)
     modelis = models.CharField('Modelis', max_length=200)
+    gamybos_metai = models.TextField('Gamybos metai', max_length=2000, default='')
 
     def __str__(self):
         return f"{self.marke} {self.modelis}"
@@ -34,6 +35,22 @@ class Uzsakymas(models.Model):
 
     def __str__(self):
         return f"[{self.motociklas.valstybinis_NR}] {self.motociklas.motociklo_modelis}"
+
+    LOAN_STATUS = (
+        ('u', 'Užregistruota'),
+        ('v', 'Vykdoma'),
+        ('g', 'Galima paimti'),
+        ('p', 'Paimta'),
+        ('a', 'Atšaukta'),
+    )
+
+    status = models.CharField(
+        max_length=1,
+        choices=LOAN_STATUS,
+        blank=True,
+        default='u',
+        help_text='Statusas',
+    )
 
     def suma(self):
         suma = 0
@@ -71,3 +88,4 @@ class Paslauga(models.Model):
     class Meta:
         verbose_name = 'Paslauga'
         verbose_name_plural = 'Paslaugos'
+

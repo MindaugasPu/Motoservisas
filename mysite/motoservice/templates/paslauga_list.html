@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Paslaugų sąrašas</h1>
+  <ul>
+    {% for paslauga in paslauga_list %}
+    <li>
+      <a href="{{ paslauga.id }}">{{ paslauga.pavadinimas }}</a>
+    </li>
+    {% endfor %}
+  </ul>
+{% endblock %}
