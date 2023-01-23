@@ -12,11 +12,13 @@
 </head>
 <body>
 
-<div class="p-3 bg-success text-white text-center bg-opacity-75">
-  <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" class="bi bi-tools" viewBox="0 0 16 16">
+<div class="p-1 bg-success text-white text-center bg-opacity-75">
+  <h3>
+  <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-tools" viewBox="0 0 20 20">
   <path d="M1 0 0 1l2.2 3.081a1 1 0 0 0 .815.419h.07a1 1 0 0 1 .708.293l2.675 2.675-2.617 2.654A3.003 3.003 0 0 0 0 13a3 3 0 1 0 5.878-.851l2.654-2.617.968.968-.305.914a1 1 0 0 0 .242 1.023l3.27 3.27a.997.997 0 0 0 1.414 0l1.586-1.586a.997.997 0 0 0 0-1.414l-3.27-3.27a1 1 0 0 0-1.023-.242L10.5 9.5l-.96-.96 2.68-2.643A3.005 3.005 0 0 0 16 3c0-.269-.035-.53-.102-.777l-2.14 2.141L12 4l-.364-1.757L13.777.102a3 3 0 0 0-3.675 3.68L7.462 6.46 4.793 3.793a1 1 0 0 1-.293-.707v-.071a1 1 0 0 0-.419-.814L1 0Zm9.646 10.646a.5.5 0 0 1 .708 0l2.914 2.915a.5.5 0 0 1-.707.707l-2.915-2.914a.5.5 0 0 1 0-.708ZM3 11l.471.242.529.026.287.445.445.287.026.529L5 13l-.242.471-.026.529-.445.287-.287.445-.529.026L3 15l-.471-.242L2 14.732l-.287-.445L1.268 14l-.026-.529L1 13l.242-.471.026-.529.445-.287.287-.445.529-.026L3 11Z"/>
   </svg>
-  <h2>Rajono Motoservisas</h2>
+  Rajono Motoservisas
+  </h3>
   <p>Pasirūpinsime Jūsų motociklu</p>
 </div>
 
@@ -24,13 +26,16 @@
   <div class="container-fluid">
     <ul class="navbar-nav">
       <li class="nav-item">
-        <a class="nav-link active" href="{% url 'index' %}">Pradžia</a>
+        <a class="nav-link" href="{% url 'index' %}">Pradžia</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="{% url 'motociklai' %}">Motociklai</a>
       </li>
+       <li class="nav-item">
+        <a class="nav-link" href="{% url 'uzsakymai' %}">Užsakymai</a>
+      </li>
       <li class="nav-item">
-        <a class="nav-link" href="{% url 'paslaugos' %}">Paslaugos</a>
+        <a class="nav-link" href="{% url 'paslaugos' %}">Kainoraštis</a>
       </li>
     </ul>
   </div>
@@ -48,7 +53,7 @@
 <!--        </ul>-->
 <!--     {% endblock %}-->
 
-<div class="mt-5 p-1 bg-dark text-white text-end fixed-bottom">
+<div class="mt-5 p-0 bg-dark text-white text-end fixed-bottom">
   <p>@2023 Mindaugas Pupienis</p>
 </div>
 

@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h4>Užsakymo informacija</h4>
+<ul>
+    <li><b>Motociklas: </b>{{uzsakymas.motociklas}}</li>
+    <li><b>Užsakymo data: </b>{{uzsakymas.data}}</li>
+    <li><b>Būsena: </b>{{uzsakymas.get_status_display}}</li>
+</ul>
+<hr>
+<h5>Užsakytos paslaugos</h5>
+
+<table class="table table-bordered">
+    <thead>
+    <tr>
+        <th scope="col">Paslauga</th>
+        <th scope="col">Kiekis</th>
+        <th scope="col">Kaina</th>
+        <th scope="col">Suma</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for eilute in uzsakymas.eilutes.all %}
+    <tr>
+        <th scope="row">{{ eilute.paslauga.pavadinimas }}</th>
+        <td> {{ eilute.kiekis }}</td>
+        <td> {{ eilute.paslauga.kaina }}</td>
+        <td> {{ eilute.kaina }}</td>
+    </tr>
+    {% endfor%}
+    <tr>
+        <td colspan="3">BENDRA</td>
+        <td>{{ uzsakymas.suma }}</td>
+    </tr>
+    </tbody>
+</table>
+
+
+{% endblock %}

@@ -18,7 +18,7 @@ def index(request):
     return render(request, 'index.html', context=context)
 
 def motociklai(request):
-    motociklai = MotocikloModelis.objects.all()
+    motociklai = Motociklas.objects.all()
     context = {
         'motociklai': motociklai
     }
@@ -26,9 +26,18 @@ def motociklai(request):
     return render(request, 'motociklai.html', context=context)
 
 def motociklas(request, motociklas_id):
-    vienas_motociklas = get_object_or_404(MotocikloModelis, pk=motociklas_id)
+    vienas_motociklas = get_object_or_404(Motociklas, pk=motociklas_id)
     return render(request, 'motociklas.html', {'motociklas': vienas_motociklas})
 
 class PaslaugaListView(generic.ListView):
     model = Paslauga
     template_name = 'paslauga_list.html'
+
+class UzsakymasListView(generic.ListView):
+    model = Uzsakymas
+    template_name = 'uzsakymai.html'
+
+
+class UzsakymasDetailView(generic.DetailView):
+    model = Uzsakymas
+    template_name = 'uzsakymai_detail.html'

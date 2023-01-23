@@ -1,9 +1,10 @@
 {% extends "base.html" %}
 
+{% block title %}<title>Motociklai</title>{% endblock %}
+
 {% block content %}
-  <h2>Motociklai</h2>
-  <p>Motociklai pabuvoję Mūsų servise:</p>
+  <p>Motociklų sąrašas:</p>
   {% for x in motociklai %}
-    <li><a href="{% url 'motociklas' x.id %}">{{x.marke}} {{x.modelis}}</a></li>
+    <li><a href="{% url 'motociklas' x.id %}">{{x}}</a></li>
   {% endfor %}
 {% endblock %}

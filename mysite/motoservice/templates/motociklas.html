@@ -2,8 +2,11 @@
 
 {% block content %}
   <div class="container motociklas">
-    <h4>{{ motociklas.marke }} {{ motociklas.modelis }}</h4>
     <hr/>
-    <p>Gamybos metai: {{ motociklas.gamybos_metai }}</p>
+    <p><b>Savininkas: </b>{{ motociklas.klientas }}</p>
+    <p><b>Modelis: </b>{{ motociklas.motociklo_modelis }}</p>
+    <p><b>Gamybos metai: </b>{{ motociklas.metai }}</p>
+    <p><b>Valstybinis numeris: </b>{{ motociklas.valstybinis_NR }}</p>
+    <p><b>VIN kodas: </b>{{ motociklas.vin_kodas }}</p>
   </div>
 {% endblock %}
