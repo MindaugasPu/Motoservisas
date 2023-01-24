@@ -1,12 +1,20 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <h1>Paslaugų sąrašas</h1>
-  <ul>
+  <table class="table table-bordered">
+    <thead>
+    <tr>
+        <th scope="col">Paslauga</th>
+        <th scope="col">Kaina, Eur</th>
+    </tr>
+    </thead>
+    <tbody>
     {% for paslauga in paslauga_list %}
-    <li>
-      <p>{{ paslauga }} {{ paslauga.kaina }} Eur</p>
-    </li>
-    {% endfor %}
-  </ul>
+    <tr>
+        <th>{{ paslauga }}</th>
+        <td> {{ paslauga.kaina }}</td>
+    </tr>
+    {% endfor%}
+    </tbody>
+    </table>
 {% endblock %}

@@ -10,11 +10,14 @@ def index(request):
     num_motociklai = Motociklas.objects.all().count()
     num_paslaugos = Paslauga.objects.all().count()
     num_aptarnauta = Uzsakymas.objects.filter(status__exact='p').count()
+    num_visits = request.session.get('num_visits', 1)
+    request.session['num_visits'] = num_visits + 1
 
     context = {
         'num_motociklai': num_motociklai,
         'num_paslaugos': num_paslaugos,
         'num_aptarnauta': num_aptarnauta,
+        'num_visits': num_visits
     }
 
     return render(request, 'index.html', context=context)
@@ -39,7 +42,7 @@ class PaslaugaListView(generic.ListView):
 
 class UzsakymasListView(generic.ListView):
     model = Uzsakymas
-    paginate_by = 5
+    paginate_by = 8
     template_name = 'uzsakymai.html'
 
 
@@ -52,3 +55,5 @@ def search(request):
     query = request.GET.get('query')
     search_results = Motociklas.objects.filter(Q(klientas__icontains=query) | Q(valstybinis_NR__icontains=query) | Q(vin_kodas__icontains=query) | Q(motociklo_modelis_id__marke__icontains=query) | Q(motociklo_modelis_id__modelis__icontains=query))
     return render(request, 'search.html', {'motociklai': search_results, 'query': query})
+
+

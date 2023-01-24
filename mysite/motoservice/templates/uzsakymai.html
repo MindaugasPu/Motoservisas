@@ -2,13 +2,28 @@
 
 {% block content %}
   <h1>Užsakymų sąrašas</h1>
-  <ul>
+<table class="table table-bordered">
+    <thead>
+    <tr>
+        <th scope="col">Užsakymo data</th>
+        <th scope="col">Statusas</th>
+        <th scope="col">Klientas</th>
+        <th scope="col">Motociklas</th>
+        <th scope="col">Valstybiniai numeriai</th>
+    </tr>
+    </thead>
+    <tbody>
     {% for uzsakymas in uzsakymas_list %}
-    <li>
-      <a href="{{ uzsakymas.id }}">{{ uzsakymas }} {{uzsakymas.data}}</a>
-    </li>
-    {% endfor %}
-  </ul>
+    <tr>
+        <th scope="row"><a href="{{ uzsakymas.id }}">{{ uzsakymas.data }}</a></th>
+        <td> {{ uzsakymas.get_status_display }}</td>
+        <td> {{ uzsakymas.motociklas.klientas }}</td>
+        <td> {{ uzsakymas.motociklas.motociklo_modelis }}</td>
+        <td> {{ uzsakymas.motociklas.valstybinis_NR }}</td>
+    </tr>
+    {% endfor%}
+    </tbody>
+    </table>
 <div class="pagination">
     <span class="step-links">
         {% if page_obj.has_previous %}

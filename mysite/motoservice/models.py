@@ -64,6 +64,7 @@ class Uzsakymas(models.Model):
     class Meta:
         verbose_name = 'Užsakymas'
         verbose_name_plural = 'Užsakymai'
+        ordering = ['id']
 
 class UzsakymoEilute(models.Model):
     uzsakymas = models.ForeignKey(to="Uzsakymas", on_delete=models.CASCADE, related_name="eilutes")
