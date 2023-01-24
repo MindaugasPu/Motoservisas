@@ -2,8 +2,11 @@
 
 {% block content %}
   <div class="container motociklas">
-    <hr/>
-    <p><b>Savininkas: </b>{{ motociklas.klientas }}</p>
+    <br/>
+    <div class="container mt-0">
+      <img src="{{ motociklas.motociklo_modelis.cover.url }}" style="margin-bottom: 20px;" class="img-thumbnail" width="304" height="236">
+    </div>
+      <p><b>Savininkas: </b>{{ motociklas.klientas }}</p>
     <p><b>Modelis: </b>{{ motociklas.motociklo_modelis }}</p>
     <p><b>Gamybos metai: </b>{{ motociklas.metai }}</p>
     <p><b>Valstybinis numeris: </b>{{ motociklas.valstybinis_NR }}</p>

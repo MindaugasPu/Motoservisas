@@ -3,8 +3,46 @@
 {% block title %}<title>Motociklai</title>{% endblock %}
 
 {% block content %}
-  <p>Motociklų sąrašas:</p>
-  {% for x in motociklai %}
-    <li><a href="{% url 'motociklas' x.id %}">{{x}}</a></li>
-  {% endfor %}
+
+{% load static %}
+  <h1>Motociklų sąrašas:</h1>
+    {% if motociklai %}
+    <div class="row">
+        {% for motociklas in motociklai %}
+        <div class="col-md-4 d-flex align-items-stretch">
+          <div class="card mb-4 shadow-sm">
+            {% if motociklas.motociklo_modelis.cover %}
+              <img src="{{ motociklas.motociklo_modelis.cover.url }}" class="card-img-top" alt="...">
+            {% else %}
+              <img src="{% static 'img/no-image.png' %}" class="card-img-top">
+            {% endif %}
+            <div class="card-body">
+              <p class="card-text"><a href="{{ motociklas.id }}">{{ motociklas }}</a></p>
+            </div>
+          </div>
+        </div>
+   {% endfor %}
+    </div>
+ {% else %}
+      <p>Automobilių nėra.</p>
+    {% endif %}
+<div class="container puslapiai">
+    <nav aria-label="...">
+        {% if motociklai.has_other_pages %}
+            <ul class="pagination pagination-sm justify-content-center">
+                {% for i in motociklai.paginator.page_range %}
+                    {% if motociklai.number == i %}
+                        <li class="page-item active">
+                            <a class="page-link">{{ i }}</a>
+                        </li>
+                    {% else %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ i }}">{{ i }}</a>
+                        </li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </nav>
+</div>
 {% endblock %}
