@@ -11,7 +11,9 @@ class UzsakymoEiltueInLine(admin.TabularInline):
     extra = 0
 
 class UzsakymasAdmin(admin.ModelAdmin):
-    list_display = ('motociklas', 'data', 'suma')
+    list_display = ('motociklas', 'data', 'suma', 'vartotojas', 'grazinimas')
+    list_editable = ('vartotojas', 'grazinimas')
+    list_filter = ('status', 'vartotojas')
     inlines = [UzsakymoEiltueInLine]
 
 class UzsakymoEiltueAdmin(admin.ModelAdmin):

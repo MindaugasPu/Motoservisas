@@ -4,6 +4,7 @@ from django.views import generic
 from django.core.paginator import Paginator
 from django.db.models import Q
 from .models import Motociklas, Paslauga, MotocikloModelis, Uzsakymas
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 # Create your views here.
 def index(request):
@@ -57,3 +58,10 @@ def search(request):
     return render(request, 'search.html', {'motociklai': search_results, 'query': query})
 
 
+class VartotojasListView(LoginRequiredMixin, generic.ListView):
+    model = Uzsakymas
+    template_name = 'manouzsakymai.html'
+    paginate_by = 10
+
+    def get_queryset(self):
+        return Uzsakymas.objects.filter(vartotojas=self.request.user)

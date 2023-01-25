@@ -1,4 +1,7 @@
 from django.db import models
+from django.contrib.auth.models import User
+from datetime import date
+from tinymce.models import HTMLField
 
 
 # Create your models here.
@@ -22,6 +25,8 @@ class Motociklas(models.Model):
     vin_kodas = models.CharField("VIN kodas", max_length=17, help_text="17 simbolių")
     klientas = models.CharField("Klientas", max_length=100)
     metai = models.IntegerField("Metai")
+    aprasymas = HTMLField("Aprašymas", null=True, blank=True)
+
 
     def __str__(self):
         return f"{self.metai} {self.motociklo_modelis} [{self.valstybinis_NR}]"
@@ -33,9 +38,14 @@ class Motociklas(models.Model):
 class Uzsakymas(models.Model):
     data = models.DateTimeField("Data", auto_now_add=True)
     motociklas = models.ForeignKey(to="Motociklas", on_delete=models.CASCADE)
+    grazinimas = models.DateField("Grąžinimas", null=True, blank=True)
+    vartotojas = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
 
     def __str__(self):
         return f"[{self.motociklas.valstybinis_NR}] {self.motociklas.motociklo_modelis}"
+
+    def is_overdue(self):
+        return self.grazinimas and date.today() > self.grazinimas
 
     LOAN_STATUS = (
         ('u', 'Užregistruota'),
