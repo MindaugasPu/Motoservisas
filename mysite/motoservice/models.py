@@ -76,6 +76,18 @@ class Uzsakymas(models.Model):
         verbose_name_plural = 'Užsakymai'
         ordering = ['id']
 
+
+class UzsakymoReview(models.Model):
+    uzsakymas = models.ForeignKey(to='Uzsakymas', on_delete=models.SET_NULL, null=True, blank=True)
+    reviewer = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
+    date_created = models.DateTimeField(auto_now_add=True)
+    content = models.TextField('Atsiliepimas', max_length=2000)
+
+    class Meta:
+        verbose_name = "Atsiliepimas"
+        verbose_name_plural = 'Atsiliepimai'
+        ordering = ['-date_created']
+
 class UzsakymoEilute(models.Model):
     uzsakymas = models.ForeignKey(to="Uzsakymas", on_delete=models.CASCADE, related_name="eilutes")
     paslauga = models.ForeignKey(to="Paslauga", on_delete=models.SET_NULL, null=True)
@@ -100,4 +112,6 @@ class Paslauga(models.Model):
     class Meta:
         verbose_name = 'Paslauga'
         verbose_name_plural = 'Paslaugos'
+
+
 

@@ -5,6 +5,7 @@
 <ul>
     <li><b>Motociklas: </b>{{uzsakymas.motociklas}}</li>
     <li><b>Užsakymo data: </b>{{uzsakymas.data}}</li>
+    <li><b>Klientas: </b>{{uzsakymas.motociklas.klientas}}</li>
     <li><b>Būsena: </b>{{uzsakymas.get_status_display}}</li>
 </ul>
 <hr>
@@ -34,6 +35,27 @@
     </tr>
     </tbody>
 </table>
-
+</br>
+  <h5>Atsiliepimai:</h5>
+  {% if uzsakymas.uzsakymoreview_set.all %}
+    {% for review in uzsakymas.uzsakymoreview_set.all %}
+      <hr>
+      <strong>{{ review.reviewer }}</strong>, <em>{{ review.date_created}}</em>
+      <p>{{ review.content }}</p>
+    {% endfor %}
+  {% else %}
+    <p>Užsakymas neturi atsiliepimų</p>
+  {% endif %}
+{% if user.is_authenticated %}
+  <div class="fieldWrapper">
+    <hr><br/>
+    <h4>Palikite atsiliepimą:</h4>
+    <form action="" method="post">
+      {% csrf_token %}
+      {{ form.content }}</br>
+      <input type="submit" value="Išsaugoti">
+    </form>
+  </div>
+  {% endif %}
 
 {% endblock %}
