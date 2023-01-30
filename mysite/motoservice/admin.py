@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Motociklas, MotocikloModelis, Uzsakymas, UzsakymoEilute, Paslauga, UzsakymoReview
+from .models import Motociklas, MotocikloModelis, Uzsakymas, UzsakymoEilute, Paslauga, UzsakymoReview, Profilis
 
 class MotociklasAdmin(admin.ModelAdmin):
     list_display = ('motociklo_modelis', 'metai', 'valstybinis_NR', 'vin_kodas', 'klientas')
@@ -35,3 +35,4 @@ admin.site.register(Uzsakymas, UzsakymasAdmin)
 admin.site.register(UzsakymoEilute, UzsakymoEiltueAdmin)
 admin.site.register(Paslauga, PaslaugaAdmin)
 admin.site.register(UzsakymoReview, UzsakymoReviewAdmin)
+admin.site.register(Profilis)
