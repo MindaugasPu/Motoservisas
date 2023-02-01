@@ -46,6 +46,7 @@
               </svg>
 
             {{ user.get_username }}</a></li>
+            <li class="nav-item"><a class="nav-link" href="{% url 'manouzsakymainaujas'%}?next=/manouzsakymai">Naujas užsakymas</a></li>
             <li class="nav-item"><a class="nav-link" href="{% url 'manouzsakymai' %}">Mano užsakymai</a></li>
             <li class="nav-item"><a class="nav-link" href="{% url 'logout' %}">Atsijungti</a></li>
           {% else %}

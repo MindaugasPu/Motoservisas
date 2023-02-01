@@ -5,9 +5,16 @@
 <ul>
     <li><b>Motociklas: </b>{{uzsakymas.motociklas}}</li>
     <li><b>Užsakymo data: </b>{{uzsakymas.data}}</li>
+    <li><b>Grąžinimo data: </b>{{uzsakymas.grazinimas}}</li>
     <li><b>Klientas: </b>{{uzsakymas.motociklas.klientas}}</li>
     <li><b>Būsena: </b>{{uzsakymas.get_status_display}}</li>
 </ul>
+{% if object.vartotojas == user %}
+<div>
+    <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'manouzsakymaiupdate' object.id %}">Redaguoti</a>
+      <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'manouzsakymaidelete' object.id %}">Ištrinti</a>
+</div>
+{% endif %}
 <hr>
 <h5>Užsakytos paslaugos</h5>
 

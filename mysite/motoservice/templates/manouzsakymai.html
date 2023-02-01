@@ -8,7 +8,7 @@
 
       {% for uzsakymas in uzsakymas_list %}
       <li class="{% if uzsakymas.is_overdue %}text-danger{% endif %}">
-        <a href="{% url 'uzsakymas_detail' uzsakymas.motociklas.id%}">{{uzsakymas.motociklas}}</a> ({{ uzsakymas.grazinimas }}) -- {{uzsakymas.get_status_display}}
+          <a href="{% url 'uzsakymas_detail' uzsakymas.id%}">{{uzsakymas.motociklas}}</a> ({{ uzsakymas.grazinimas }}) -- {{uzsakymas.get_status_display}}
       </li>
       {% endfor %}
     </ul>

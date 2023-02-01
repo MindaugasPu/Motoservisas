@@ -7,9 +7,10 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.forms import User
 from django.views.decorators.csrf import csrf_protect
 from django.contrib import messages
-from .forms import UzsakymoReviewForm, UserUpdateForm,  ProfilisUpdateForm
+from .forms import UzsakymoReviewForm, UserUpdateForm,  ProfilisUpdateForm, VartotojoUzsakymasCreateForm, UzsakymasPagalVartotojasUpdateForm
 from django.views.generic.edit import FormMixin
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import UserPassesTestMixin
 
 
 # Create your views here.
@@ -92,6 +93,42 @@ class VartotojasListView(LoginRequiredMixin, generic.ListView):
 
     def get_queryset(self):
         return Uzsakymas.objects.filter(vartotojas=self.request.user)
+
+class UzsakymasPagalVartotojasCreateView(LoginRequiredMixin, generic.CreateView):
+    model = Uzsakymas
+    # fields = ['motociklas', 'grazinimas']
+    success_url = '/motoservice/manouzsakymai/'
+    template_name = 'vartotojo_uzsakymai_form.html'
+    form_class = VartotojoUzsakymasCreateForm
+
+    def form_valid(self, form):
+        form.instance.vartotojas = self.request.user
+        return super().form_valid(form)
+
+class UzsakymasPagalVartotojasUpdateView(LoginRequiredMixin, UserPassesTestMixin, generic.UpdateView):
+    model = Uzsakymas
+    # fields = ['motociklas', 'grazinimas', 'status']
+    success_url = '/motoservice/manouzsakymai/'
+    template_name = 'vartotojo_uzsakymai_form.html'
+    form_class = UzsakymasPagalVartotojasUpdateForm
+
+    def form_valid(self, form):
+        form.instance.vartotojas = self.request.user
+        return super().form_valid(form)
+
+    def test_func(self):
+        uzsakymas = self.get_object()
+        return self.request.user == uzsakymas.vartotojas
+
+class UzsakymasPagalVartotojasDeleteView(LoginRequiredMixin, UserPassesTestMixin, generic.DeleteView):
+    model = Uzsakymas
+    success_url = '/motoservice/manouzsakymai/'
+    template_name = 'vartotojo_uzsakymai_delete.html'
+
+    def test_func(self):
+        uzsakymas = self.get_object()
+        return self.request.user == uzsakymas.vartotojas
+
 
 @csrf_protect
 def register(request):

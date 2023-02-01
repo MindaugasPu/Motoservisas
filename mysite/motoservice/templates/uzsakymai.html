@@ -10,6 +10,7 @@
         <th scope="col">Klientas</th>
         <th scope="col">Motociklas</th>
         <th scope="col">Valstybiniai numeriai</th>
+        <th scope="col">Atsakingas</th>
     </tr>
     </thead>
     <tbody>
@@ -17,9 +18,10 @@
     <tr>
         <th scope="row"><a href="{{ uzsakymas.id }}">{{ uzsakymas.data }}</a></th>
         <td> {{ uzsakymas.get_status_display }}</td>
-        <td> <img class="rounded-circle img-fluid.max-width: 10%" src="{{uzsakymas.vartotojas.profilis.nuotrauka.url}}">{{ uzsakymas.motociklas.klientas }}</td>
+        <td> {{ uzsakymas.motociklas.klientas }}</td>
         <td> {{ uzsakymas.motociklas.motociklo_modelis }}</td>
         <td> {{ uzsakymas.motociklas.valstybinis_NR }}</td>
+        <td><img class="rounded-circle img-fluid.max-width: 10%" src="{{uzsakymas.vartotojas.profilis.nuotrauka.url}}"></td>
     </tr>
     {% endfor%}
     </tbody>

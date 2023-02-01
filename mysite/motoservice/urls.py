@@ -12,4 +12,7 @@ urlpatterns = [
     path('register/', views.register, name='register'),
     path('profilis/', views.profilis, name='profilis'),
     path('manouzsakymai/', views.VartotojasListView.as_view(), name='manouzsakymai'),
+    path('manouzsakymai/naujas', views.UzsakymasPagalVartotojasCreateView.as_view(), name='manouzsakymainaujas'),
+    path('manouzsakymai/<int:pk>/update', views.UzsakymasPagalVartotojasUpdateView.as_view(), name='manouzsakymaiupdate'),
+    path('manouzsakymai/<int:pk>/delete', views.UzsakymasPagalVartotojasDeleteView.as_view(), name='manouzsakymaidelete'),
 ]
