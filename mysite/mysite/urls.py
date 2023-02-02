@@ -23,6 +23,7 @@ from django.views.generic import RedirectView
 urlpatterns = [
     path('motoservice/', include('motoservice.urls')),
     path('admin/', admin.site.urls),
+    path('i18n/', include('django.conf.urls.i18n')),
     path('tinymce/', include('tinymce.urls')),
     path('', RedirectView.as_view(url='motoservice/', permanent=True)),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) +\

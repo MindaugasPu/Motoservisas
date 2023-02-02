@@ -1,11 +1,11 @@
 {% extends "base.html" %}
-
 {% block content %}
-<h2>Motoserviso statistika:</h2>
+{% load i18n %}
+<h2>{% trans "Motoservice stats:"%}</h2>
   <ul>
-    <li><strong>Aptarnauti motociklų modeliai:</strong> {{ num_motociklai }}</li>
-    <li><strong>Teikiamų paslaugų skaičius:</strong> {{ num_paslaugos }}</li>
-    <li><strong>Sutvarkyti motociklai:</strong> {{ num_aptarnauta }}</li>
+    <li><strong>{% trans "Serviced different motorcycle models:"%}</strong> {{ num_motociklai }}</li>
+    <li><strong>{% trans "Amount of services:"%}</strong> {{ num_paslaugos }}</li>
+    <li><strong>{% trans "Serviced motorcycles:"%}</strong> {{ num_aptarnauta }}</li>
   </ul>
-<p>Čia jūs lankotes {{ num_visits }}-ą kartą.</p>
+<p>{% trans "Your visits:"%} {{ num_visits }}</p>
 {% endblock %}

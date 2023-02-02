@@ -1,11 +1,11 @@
 {% extends "base.html" %}
-
+{% load i18n %}
 {% block title %}<title>Motociklai</title>{% endblock %}
 
 {% block content %}
 
 {% load static %}
-  <h1>Motociklų sąrašas:</h1>
+  <h1>{% trans "Motorcycles list"%}:</h1>
     {% if motociklai %}
     <div class="row">
         {% for motociklas in motociklai %}

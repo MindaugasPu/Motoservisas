@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from datetime import date
 from tinymce.models import HTMLField
 from PIL import Image
+from django.utils.translation import gettext_lazy as _
 
 
 # Create your models here.
@@ -21,26 +22,26 @@ class MotocikloModelis(models.Model):
 
 
 class Motociklas(models.Model):
-    valstybinis_NR = models.CharField('Valstybiniai numeriai', max_length=7)
+    valstybinis_NR = models.CharField(_('Licence plate'), max_length=7)
     motociklo_modelis = models.ForeignKey(to="MotocikloModelis", on_delete=models.SET_NULL, null=True)
-    vin_kodas = models.CharField("VIN kodas", max_length=17, help_text="17 simbolių")
-    klientas = models.CharField("Klientas", max_length=100)
-    metai = models.IntegerField("Metai")
-    aprasymas = HTMLField("Aprašymas", null=True, blank=True)
+    vin_kodas = models.CharField(_("VIN code"), max_length=17, help_text="17 simbolių")
+    klientas = models.CharField(_("Client"), max_length=100)
+    metai = models.IntegerField(_("Year"))
+    aprasymas = HTMLField(_("Summary"), null=True, blank=True)
 
 
     def __str__(self):
         return f"{self.metai} {self.motociklo_modelis} [{self.valstybinis_NR}]"
 
     class Meta:
-        verbose_name = 'Motociklas'
-        verbose_name_plural = 'Motociklai'
+        verbose_name = _('Motorcycle')
+        verbose_name_plural = _('Motorcycles')
 
 class Uzsakymas(models.Model):
-    data = models.DateTimeField("Data", auto_now_add=True)
-    motociklas = models.ForeignKey(to="Motociklas", on_delete=models.CASCADE)
-    grazinimas = models.DateField("Grąžinimas", null=True, blank=True)
-    vartotojas = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
+    data = models.DateTimeField(_("Date"), auto_now_add=True)
+    motociklas = models.ForeignKey(to="Motociklas", verbose_name=_('Motorcycle'), on_delete=models.CASCADE)
+    grazinimas = models.DateField(_("Due Back Date"), null=True, blank=True)
+    vartotojas = models.ForeignKey(User, verbose_name=_('User'), on_delete=models.SET_NULL, null=True, blank=True)
 
     def __str__(self):
         return f"[{self.motociklas.valstybinis_NR}] {self.motociklas.motociklo_modelis}"
@@ -61,7 +62,7 @@ class Uzsakymas(models.Model):
         choices=LOAN_STATUS,
         blank=True,
         default='u',
-        help_text='Statusas',
+        help_text=_('Status'),
     )
 
     def suma(self):
@@ -73,8 +74,8 @@ class Uzsakymas(models.Model):
 
 
     class Meta:
-        verbose_name = 'Užsakymas'
-        verbose_name_plural = 'Užsakymai'
+        verbose_name = _('Order')
+        verbose_name_plural = _('Orders')
         ordering = ['-id']
 
 
