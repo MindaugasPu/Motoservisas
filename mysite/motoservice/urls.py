@@ -15,4 +15,8 @@ urlpatterns = [
     path('manouzsakymai/naujas', views.UzsakymasPagalVartotojasCreateView.as_view(), name='manouzsakymainaujas'),
     path('manouzsakymai/<int:pk>/update', views.UzsakymasPagalVartotojasUpdateView.as_view(), name='manouzsakymaiupdate'),
     path('manouzsakymai/<int:pk>/delete', views.UzsakymasPagalVartotojasDeleteView.as_view(), name='manouzsakymaidelete'),
+    path('manouzsakymai/<int:pk2>/eiluteedit/<int:pk>', views.PaslaugosRedagavimasUpdateView.as_view(), name='paslaugosredagavimas'),
+    path('manouzsakymai/<int:pk2>/eilutedelete/<int:pk>', views.PaslaugosTrinimoView.as_view(), name='paslaugostrinimas'),
+    path('uzsakymai/<int:pk>/prideti', views.PaslaugaPridetiCreateView.as_view(), name='paslaugospridejimas'),
+
 ]

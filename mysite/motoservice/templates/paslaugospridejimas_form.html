@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block title %}Pridėti paslaugą{% endblock %}
+
+{% block content %}
+{% load crispy_forms_tags %}
+
+<div class="content-section">
+<form method="POST">
+    {% csrf_token %}
+    <fieldset class="form-group">
+        <legend class="border-bottom mb-4">Pridėti paslaugą</legend>
+        {{ form|crispy }}
+    </fieldset>
+    <div class="form-group">
+        <button class="btn btn-outline-info" type="submit">Išsaugoti</button>
+    </div>
+</form>
+</div>
+{% endblock %}

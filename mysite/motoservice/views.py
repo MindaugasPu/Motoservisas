@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect, reverse
 from django.views import generic
 from django.core.paginator import Paginator
 from django.db.models import Q
-from .models import Motociklas, Paslauga, MotocikloModelis, Uzsakymas
+from .models import Motociklas, Paslauga, UzsakymoEilute, Uzsakymas
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.forms import User
 from django.views.decorators.csrf import csrf_protect
@@ -108,7 +108,7 @@ class UzsakymasPagalVartotojasCreateView(LoginRequiredMixin, generic.CreateView)
 class UzsakymasPagalVartotojasUpdateView(LoginRequiredMixin, UserPassesTestMixin, generic.UpdateView):
     model = Uzsakymas
     # fields = ['motociklas', 'grazinimas', 'status']
-    success_url = '/motoservice/manouzsakymai/'
+    # success_url = '/motoservice/manouzsakymai/'
     template_name = 'vartotojo_uzsakymai_form.html'
     form_class = UzsakymasPagalVartotojasUpdateForm
 
@@ -119,6 +119,9 @@ class UzsakymasPagalVartotojasUpdateView(LoginRequiredMixin, UserPassesTestMixin
     def test_func(self):
         uzsakymas = self.get_object()
         return self.request.user == uzsakymas.vartotojas
+
+    def get_success_url(self):
+        return reverse('uzsakymas_detail', kwargs={'pk': self.object.id})
 
 class UzsakymasPagalVartotojasDeleteView(LoginRequiredMixin, UserPassesTestMixin, generic.DeleteView):
     model = Uzsakymas
@@ -179,3 +182,40 @@ def profilis(request):
         'p_form': p_form,
     }
     return render(request, 'profilis.html', context)
+
+class PaslaugosRedagavimasUpdateView(generic.UpdateView):
+    model = UzsakymoEilute
+    fields = ['paslauga', 'kiekis']
+    template_name = 'paslaugosredagavimas_form.html'
+
+    def get_success_url(self):
+        return reverse('uzsakymas_detail', kwargs={'pk': self.kwargs['pk2']})
+
+class PaslaugosTrinimoView(generic.DeleteView):
+    model = UzsakymoEilute
+    template_name = 'paslaugostrinimas_form.html'
+    context_object_name = 'eilute'
+
+    def get_success_url(self):
+        return reverse('uzsakymas_detail', kwargs={'pk': self.kwargs['pk2']})
+
+
+class PaslaugaPridetiCreateView(LoginRequiredMixin, UserPassesTestMixin, generic.CreateView):
+    model = UzsakymoEilute
+    fields = ['paslauga', 'kiekis']
+    template_name = 'paslaugospridejimas_form.html'
+
+    def get_success_url(self):
+        return reverse('uzsakymas_detail', kwargs={'pk': self.kwargs['pk']})
+
+    def form_valid(self, form):
+        form.instance.uzsakymas = Uzsakymas.objects.get(pk=self.kwargs['pk'])
+        form.save()
+        return super().form_valid(form)
+
+
+
+    def test_func(self):
+        uzsakymas = Uzsakymas.objects.get(pk=self.kwargs['pk'])
+        return self.request.user == uzsakymas.vartotojas
+
